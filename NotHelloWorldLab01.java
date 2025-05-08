@@ -33,7 +33,7 @@ class NotHelloWorldComponent extends JComponent {
     public void paintComponent(Graphics g) {
         Graphics2D g2 = (Graphics2D) g;
         super.paintComponent(g); 
-        Font sansbold14 = new Font("SansSerif", Font.BOLD,28);
+        Font sansbold14 = new Font("SansSerif", Font.BOLD,30);
         g2.setFont(sansbold14); 
         g2.drawString("Not a Hello, world program", MESSAGE_X, MESSAGE_Y);  
     }
