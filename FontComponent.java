@@ -11,7 +11,7 @@ public class FontComponent extends JComponent {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
-        String message = "Hello, World!";
+        String message = "Hello, Im Sameer Bhandari";
         Font f = new Font("Serif", Font.BOLD, 36);
         g2.setFont(f);
         
