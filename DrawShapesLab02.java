@@ -13,3 +13,33 @@ public class DrawShapesLab02 {
         });
     }
 }
+
+class ShapesComponent extends JComponent {
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        Graphics2D g2 = (Graphics2D) g;
+
+        // Set color and draw a rectangle
+        g2.setColor(Color.PINK);
+        g2.fillRect(50, 50, 100, 50);  // (x, y, width, height)
+
+        // Set color and draw an oval
+        g2.setColor(Color.BLACK);
+        g2.fillOval(200, 50, 100, 50);
+
+        // Draw a line
+        g2.setColor(Color.RED);
+        g2.drawLine(50, 150, 300, 150);
+
+        // Draw a circle
+        g2.setColor(Color.YELLOW);
+        g2.fillOval(100, 200, 80, 80);
+
+        // Draw a polygon (triangle)
+        int[] xPoints = {150, 250, 200};
+        int[] yPoints = {300, 300, 250};
+        g2.setColor(Color.ORANGE);
+        g2.fillPolygon(xPoints, yPoints, 3);
+    }
+}
