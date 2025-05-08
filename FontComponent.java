@@ -20,4 +20,37 @@ public class FontComponent extends JComponent {
         Rectangle2D bounds = f.getStringBounds(message, context);
         
         // Set (x, y) - top left corner of text
-     
+        double x = (getWidth() - bounds.getWidth()) / 2;
+        double y = (getHeight() - bounds.getHeight()) / 2;
+        
+        // Add ascent to y to reach the baseline
+        double ascent = -bounds.getY();
+        double baseY = y + ascent;
+        
+        // Fill rectangle with yellow
+        g2.setColor(Color.RED);
+        g2.fillRect((int) x - 10, (int) (baseY - ascent - 10), (int) bounds.getWidth() + 20, (int) bounds.getHeight() + 20);
+        
+        // Set font color to blue
+        g2.setColor(Color.GREEN);
+        g2.drawString(message, (float) x, (float) baseY);
+        
+        // Draw a red line below the text
+        g2.setColor(Color.BLACK);
+        double lineY = baseY + 2; 
+        g2.drawLine((int) x, (int) lineY, (int) (x + bounds.getWidth()), (int) lineY);
+    }
+
+    @Override
+    public Dimension getPreferredSize() {
+        return new Dimension(DEFAULT_WIDTH, DEFAULT_HEIGHT);
+    }
+
+    public static void main(String[] args) {
+        JFrame frame = new JFrame();
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.add(new FontComponent());
+        frame.pack();
+        frame.setVisible(true);
+    }
+}
