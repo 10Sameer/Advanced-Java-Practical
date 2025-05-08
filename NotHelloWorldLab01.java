@@ -2,7 +2,7 @@
 import javax.swing.*;  
 import java.awt.*;     
 
-public class NotHelloWorld {
+public class NotHelloWorldLab01 {
     public static void main(String[] args) {
         EventQueue.invokeLater(() -> {
             JFrame frame = new NotHelloWorldFrame();
