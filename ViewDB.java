@@ -132,4 +132,62 @@ class ViewDBFrame extends JFrame {
 
     /**
      * Deletes current table row.
-  
+     */
+    public void deleteRow() {
+        if (crs == null) return;
+        new SwingWorker<Void, Void>() {
+            public Void doInBackground() throws SQLException {
+                crs.deleteRow();
+                crs.acceptChanges(conn);
+                if (crs.isAfterLast())
+                    if (!crs.last()) crs = null;
+                return null;
+            }
+
+            public void done() {
+                dataPanel.showRow(crs);
+            }
+        }.execute();
+    }
+
+    /**
+     * Saves all changes.
+     */
+    public void saveChanges() {
+        if (crs == null) return;
+        new SwingWorker<Void, Void>() {
+            public Void doInBackground() throws SQLException {
+                dataPanel.setRow(crs);
+                crs.acceptChanges(conn);
+                return null;
+            }
+
+            public void done() {
+                dataPanel.showRow(crs);
+            }
+        }.execute();
+    }
+
+    /**
+     * Reads the database properties from a file.
+     */
+    public void readDatabaseProperties() throws IOException {
+        props = new Properties();
+        try (InputStream in = Files.newInputStream(Paths.get("database.properties"))) {
+            props.load(in);
+        }
+    }
+
+    /**
+     * Gets a connection from the properties specified in the file.
+     */
+    public Connection getConnection() throws SQLException {
+        String drivers = props.getProperty("jdbc.drivers");
+        if (drivers != null) System.setProperty("jdbc.drivers", drivers);
+        String url = props.getProperty("jdbc.url");
+        String username = props.getProperty("jdbc.username");
+        String password = props.getProperty("jdbc.password");
+
+        return DriverManager.getConnection(url, username, password);
+    }
+}
