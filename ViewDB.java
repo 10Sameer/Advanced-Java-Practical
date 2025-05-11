@@ -66,4 +66,70 @@ class ViewDBFrame extends JFrame {
             }
         });
 
-    
+        JPanel buttonPanel = new JPanel();
+        add(buttonPanel, BorderLayout.SOUTH);
+
+        previousButton = new JButton("Previous");
+        previousButton.addActionListener(event -> showPreviousRow());
+        buttonPanel.add(previousButton);
+
+        nextButton = new JButton("Next");
+        nextButton.addActionListener(event -> showNextRow());
+        buttonPanel.add(nextButton);
+
+        deleteButton = new JButton("Delete");
+        deleteButton.addActionListener(event -> deleteRow());
+        buttonPanel.add(deleteButton);
+
+        saveButton = new JButton("Save");
+        saveButton.addActionListener(event -> saveChanges());
+        buttonPanel.add(saveButton);
+
+        if (tableNames.getItemCount() > 0)
+            showTable(tableNames.getItemAt(0), conn);
+    }
+
+    public void showTable(String tableName, Connection conn) {
+        try (Statement stat = conn.createStatement();
+             ResultSet result = stat.executeQuery("SELECT * FROM " + tableName)) {
+
+            RowSetFactory factory = RowSetProvider.newFactory();
+            crs = factory.createCachedRowSet();
+            crs.setTableName(tableName);
+            crs.populate(result);
+
+            if (scrollPane != null) remove(scrollPane);
+            dataPanel = new DataPanel(crs);
+            scrollPane = new JScrollPane(dataPanel);
+            add(scrollPane, BorderLayout.CENTER);
+            pack();
+            showNextRow();
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    public void showPreviousRow() {
+        try {
+            if (crs == null || crs.isFirst()) return;
+            crs.previous();
+            dataPanel.showRow(crs);
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    public void showNextRow() {
+        try {
+            if (crs == null || crs.isLast()) return;
+            crs.next();
+            dataPanel.showRow(crs);
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    /**
+     * Deletes current table row.
+  
