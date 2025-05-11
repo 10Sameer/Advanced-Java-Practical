@@ -20,4 +20,21 @@ class DataPanel extends JPanel {
         }
     }
 
-   
+    public void showRow(ResultSet rs) {
+        try {
+            if (rs == null) return;
+            for (int i = 0; i < fields.size(); i++) {
+                fields.get(i).setText(rs.getString(i + 1));
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    public void setRow(ResultSet rs) throws SQLException {
+        for (int i = 0; i < fields.size(); i++) {
+            rs.updateString(i + 1, fields.get(i).getText());
+        }
+        rs.updateRow();
+    }
+}
