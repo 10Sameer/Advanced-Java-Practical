@@ -12,6 +12,16 @@ public class ColorChangingButton {
         // Create the button
         JButton button = new JButton("Click Me!");
 
+        
+        // Set custom font, size, and padding
+        button.setFont(new Font("Arial", Font.BOLD, 18));
+        button.setPreferredSize(new Dimension(200, 60));
+
+        // Make it visually styled
+        button.setFocusPainted(false);
+        button.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
+        button.setOpaque(true);
+
         // Colors to cycle through
         Color[] colors = { Color.RED, Color.GREEN, Color.BLUE, Color.ORANGE, Color.MAGENTA };
         final int[] colorIndex = { 0 };
