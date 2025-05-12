@@ -13,4 +13,23 @@ public class ColorChangingButton {
         JButton button = new JButton("Click Me!");
 
         // Colors to cycle through
-   
+        Color[] colors = { Color.RED, Color.GREEN, Color.BLUE, Color.ORANGE, Color.MAGENTA };
+        final int[] colorIndex = { 0 };
+
+        // Add action listener to the button
+        button.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                button.setBackground(colors[colorIndex[0]]);
+                colorIndex[0] = (colorIndex[0] + 1) % colors.length;
+            }
+        });
+
+        // Optional: make background color visible
+        button.setOpaque(true);
+        button.setBorderPainted(false);
+
+        // Add button to frame
+        frame.getContentPane().add(button);
+        frame.setVisible(true);
+    }
+}
