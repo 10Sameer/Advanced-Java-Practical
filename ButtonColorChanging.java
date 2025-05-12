@@ -57,7 +57,7 @@ public class ButtonColorChanging {
         button.addActionListener(e -> {
             index[0] = (index[0] + 1) % colors.length;
             button.setBackground(colors[index[0]]);
-            button.repaint(); // repaint to apply new background
+            button.repaint(); 
         });
 
         // Add to frame

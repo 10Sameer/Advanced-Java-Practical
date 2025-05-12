@@ -180,7 +180,9 @@ class ViewDBFrame extends JFrame {
 
     /**
      * Gets a connection from the properties specified in the file.
+     * 
      */
+    // Trying out the database
     public Connection getConnection() throws SQLException {
         String drivers = props.getProperty("jdbc.drivers");
         if (drivers != null) System.setProperty("jdbc.drivers", drivers);
