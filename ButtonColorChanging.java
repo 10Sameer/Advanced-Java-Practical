@@ -40,4 +40,28 @@ public class ButtonColorChanging {
         button.setContentAreaFilled(false); // allow custom painting
         button.setOpaque(false);
 
-        
+        // Color cycle
+        Color[] colors = {
+            new Color(255, 99, 71),
+            new Color(60, 179, 113),
+            new Color(100, 149, 237),
+            new Color(255, 215, 0),
+            new Color(186, 85, 211)
+        };
+        final int[] index = { 0 };
+
+        // Set initial background
+        button.setBackground(colors[0]);
+
+        // Change background on click
+        button.addActionListener(e -> {
+            index[0] = (index[0] + 1) % colors.length;
+            button.setBackground(colors[index[0]]);
+            button.repaint(); // repaint to apply new background
+        });
+
+        // Add to frame
+        frame.add(button);
+        frame.setVisible(true);
+    }
+}
